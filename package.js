@@ -1,8 +1,8 @@
 Package.describe({
   name: 'gly:simple-messages',
   summary: 'A package to display simple messages to the user',
-  version: '0.0.1',
-  git: 'https://github.com/glyphing/simple-messages.git'
+  version: '0.0.2',
+  git: 'https://github.com/glyphing/meteor-simple-messages.git'
 });
 
 Package.onUse(function(api) {
