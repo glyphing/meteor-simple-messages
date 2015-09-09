@@ -41,13 +41,14 @@ sendMessage = function(place, message, style, options) {
 }
 
 
-Template.flashMessages.helpers({
+Template.simpleMessages.helpers({
   messages: function () {
-    if (flashMessages.find().count() && FlashMessages.options.autoScroll)
+    place = Template.instance().data.place
+    if (simpleMessages.find({place:place}).count() && SimpleMessages.options.autoScroll)
       $('html, body').animate({
         scrollTop: 0
       }, 200);
-    var messages = flashMessages.find().fetch();
+    var messages = simpleMessages.find({place:place}).fetch();
     $.each(messages, function(index, value) {
       value.group = value.message instanceof Array;
     });
@@ -55,25 +56,25 @@ Template.flashMessages.helpers({
   }
 });
 
-Template.flashMessageItem.rendered = function () {
+Template.simpleMessageItem.rendered = function () {
   var message = this.data;
   Meteor.defer(function() {
-    flashMessages.update(message._id, {$set: {seen: true}});
+    simpleMessages.update(message._id, {$set: {seen: true}});
   });
   if (message.options && message.options.autoHide) {
     var $alert = $(this.find('.alert'));
     Meteor.setTimeout(function() {
         $alert.fadeOut(400, function() {
-          flashMessages.remove({_id: message._id});
+          simpleMessages.remove({_id: message._id});
         });
       },
       message.options.hideDelay);
   }
 };
 
-Template.flashMessageItem.events({
+Template.simpleMessageItem.events({
   "click .close": function (e, tmpl) {
     e.preventDefault();
-    flashMessages.remove(tmpl.data._id);
+    simpleMessages.remove(tmpl.data._id);
   }
 });

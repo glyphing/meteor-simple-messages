@@ -1,10 +1,12 @@
-<template name="flashMessages">
-  {{#each messages}} 
-    {{> flashMessageItem}}
-  {{/each}}
+<template name="simpleMessages">
+  <div class={{place}}>
+  {{#each messages}}
+    {{> simpleMessageItem}}
+	{{/each}}
+  </div>
 </template>
 
-<template name="flashMessageItem">
+<template name="simpleMessageItem">
   <div class="alert {{style}} alert-dismissable" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     {{# if group }}
